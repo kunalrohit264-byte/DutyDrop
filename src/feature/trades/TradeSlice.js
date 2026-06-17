@@ -24,8 +24,21 @@ const tradeSlice = createSlice({
     deleteTrade: (state, action) => {
       state.trade.splice(action.payload, 1);
     },
+    editTrade: (state, action) => {
+      const { index, updatedTrade } = action.payload;
+      if (index >= 0 && index < state.trade.length) {
+        state.trade[index] = updatedTrade;
+      }
+    },
+    updateTrade: (state, action) => {
+      const index = state.trade.findIndex((t) => t.id === action.payload.id);
+      if (index !== -1) {
+        state.trade[index] = action.payload;
+      }
+    },
   },
 });
 
-export const { addTrade, deleteTrade } = tradeSlice.actions;
+export const { addTrade, deleteTrade, editTrade, updateTrade } =
+  tradeSlice.actions;
 export default tradeSlice.reducer;
